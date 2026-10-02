@@ -397,9 +397,9 @@
                 <div class="paper-title">VIDP &rarr; VIAR</div>
                 <div class="paper-sub">02/09/2026 Afternoon (IGO5007)</div>
             </div>
-            <div class="paper-card" id="paper-3" onclick="loadScenario(1)">
+            <div class="paper-card" id="paper-2" onclick="loadScenario(2)">
                 <div class="paper-title">VECC &rarr; VILK</div>
-                <div class="paper-sub">18/08/2026 Afternoon (IGO7277)</div>
+                <div class="paper-sub">18/08/2026 Afternoon (IG07277)</div>
             </div>
         </div>
     </aside>
@@ -486,13 +486,13 @@
             
             <!-- 4. FREQUENCY (25% Width, 50% Height) -->
             <section class="grid-box box-frequency">
-                <div class="box-title">FREQENCY</div>
-                <div class="freq-content">
-                    <p><strong>DELHI ATC</strong></p>
-                    <p>SMC: <strong>118.55</strong></p>
-                    <p>Control Tower: <strong>118.10</strong></p>
-                    <p>Approach: <strong>121.35</strong></p>
-                    <p>Area Control: <strong>119.50</strong></p>
+                <div class="box-title">FREQUENCY</div>
+                <div class="freq-content" id="freq-content">
+                    <p><strong id="freq-header">DELHI ATC</strong></p>
+                    <p>SMC: <strong id="freq-smc">118.55</strong></p>
+                    <p>Control Tower: <strong id="freq-tower">118.10</strong></p>
+                    <p>Approach: <strong id="freq-approach">121.35</strong></p>
+                    <p>Area Control: <strong id="freq-area">119.50</strong></p>
                 </div>
             </section>
 
@@ -540,6 +540,13 @@
                 dp: "11°C",
                 qnh: "1009 hPa",
                 squawk: "4231",
+                frequency: {
+                    header: "DELHI ATC",
+                    smc: "118.55",
+                    tower: "118.10",
+                    approach: "121.35",
+                    area: "119.50"
+                },
                 questions: [
                     "Request for startup and pushback.",
                     "Request for ATC Clearance and Taxi.",
@@ -579,6 +586,13 @@
                 dp: "10°C",
                 qnh: "1012 hPa",
                 squawk: "6415",
+                frequency: {
+                    header: "AMRITSAR / DELHI ATC",
+                    smc: "118.55",
+                    tower: "118.10",
+                    approach: "121.35",
+                    area: "119.50"
+                },
                 questions: [
                     "You're in enroute Amritsar, passing FLxx, request further climb. (Note: Include Transition Level in readback).",
                     "Request landing clearance, ILS approach (Report when established on localiser).",
@@ -590,52 +604,52 @@
                     "Landed on RWY 11L (ATC assigned 11L instead of 11R). Take action and request taxi to stand."
                 ]
             },
-    {
-        title: "KOLKATA ATC (VECC)",
-        desc: "KOLKATA ATC (VECC) • Runway 09 • Stand 53D",
-        callsign: "IG07277",
-        dep: "VECC",
-        dest: "VILK",
-        alt: "",
-        route: "A474",
-        fl: "220",
-        rwy: "09",
-        type: "BOEING 737",
-        reg: "",
-        wake: "",
-        stand: "53D",
-        rule: "IFR",
-        pob: "156",
-        endurance: "03:00",
-        wind: "340° / 03 KT",
-        vis: "3000 M",
-        wx: "SMOG",
-        temp: "17°C",
-        dp: "11°C",
-        qnh: "1016 hPa",
-        squawk: "",
-        frequency: {
-            smc: "118.55",
-            tower: "118.10",
-            approach: "121.35",
-            areaControl: "119.50"
-        },
-        questions: [
-            "1) GIVE A POSITION REPORT TO CONTROL AT YOUR TOP OF CLIMB OVER 10 NM O/B AAKELA 1000 EST BAVOX 1017 EST GOLOX 1043",
-            "2) 30 NM O/B AAKELA STARBOARD ENGINE IS HEAVILY VIBRATING REQ TO RETURN TO DEPARTURE",
-            "3) YOU RETURN TO THE DEPARTURE ISSUE RESOLVED, REQUEST FOR PUSHBACK AND STARTUP AGAIN",
-            "4) REQUEST ATC CLEARANCE AND TAXI INSTRUCTION",
-            "5) YOU HAVE LINED UP ON THE RUNWAY AND WANT TO PERFORM A FEW FINAL CHECKS WHICH WILL DELAY YOUR DEPARTURE - INFORM ATC",
-            "6) PASSING 5000 FT CONTACT APPROCH FOR FURTHER CLIMB",
-            "7) YOU RECIVED TCAS RA PASSING FL100",
-            "8) RELAY FOR VT-UPB",
-            "9) 100 NM I/B DELHI ON COMPANY FREQUENCY YOU GET TO KNOW ABOUT A BOMB ON BOARD ABOUT TO EXPLODE AT ANY MOMENT",
-            "10) 08 NM FROM TOUCH DOWN CONTACT TOWER FOR LANDING",
-            "11) 08 NM FROM TOUCH DOWN CONTACT TOWER FOR LANDING",
-            "12) 04 NM FROM TOUCHDOWN, YOU NOTICE THE RUNWAY EDGE LIGHTS ARE VERY BRIGHT TAKE ACTION"
-        ]
-    }
-];
+            {
+                title: "KOLKATA ATC (VECC)",
+                desc: "KOLKATA ATC (VECC) • Runway 09 • Stand 53D",
+                callsign: "IG07277",
+                dep: "VECC",
+                dest: "VILK",
+                alt: "N/A",
+                route: "A474",
+                fl: "220",
+                rwy: "09",
+                type: "BOEING 737",
+                reg: "VT-IGO",
+                wake: "Medium",
+                stand: "53D",
+                rule: "IFR",
+                pob: "156",
+                endurance: "03:00",
+                wind: "340° / 03 KT",
+                vis: "3000 M",
+                wx: "SMOG",
+                temp: "17°C",
+                dp: "11°C",
+                qnh: "1016 hPa",
+                squawk: "4231",
+                frequency: {
+                    header: "KOLKATA ATC",
+                    smc: "118.55",
+                    tower: "118.10",
+                    approach: "121.35",
+                    area: "119.50"
+                },
+                questions: [
+                    "GIVE A POSITION REPORT TO CONTROL AT YOUR TOP OF CLIMB OVER 10 NM O/B AAKELA 1000 EST BAVOX 1017 EST GOLOX 1043",
+                    "30 NM O/B AAKELA STARBOARD ENGINE IS HEAVILY VIBRATING REQ TO RETURN TO DEPARTURE",
+                    "YOU RETURN TO THE DEPARTURE ISSUE RESOLVED, REQUEST FOR PUSHBACK AND STARTUP AGAIN",
+                    "REQUEST ATC CLEARANCE AND TAXI INSTRUCTION",
+                    "YOU HAVE LINED UP ON THE RUNWAY AND WANT TO PERFORM A FEW FINAL CHECKS WHICH WILL DELAY YOUR DEPARTURE - INFORM ATC",
+                    "PASSING 5000 FT CONTACT APPROCH FOR FURTHER CLIMB",
+                    "YOU RECIVED TCAS RA PASSING FL100",
+                    "RELAY FOR VT-UPB",
+                    "100 NM I/B DELHI ON COMPANY FREQUENCY YOU GET TO KNOW ABOUT A BOMB ON BOARD ABOUT TO EXPLODE AT ANY MOMENT",
+                    "08 NM FROM TOUCH DOWN CONTACT TOWER FOR LANDING",
+                    "08 NM FROM TOUCH DOWN CONTACT TOWER FOR LANDING",
+                    "04 NM FROM TOUCHDOWN, YOU NOTICE THE RUNWAY EDGE LIGHTS ARE VERY BRIGHT TAKE ACTION"
+                ]
+            }
         ];
 
         let currentScenarioIdx = 0;
@@ -681,9 +695,16 @@
             document.getElementById('metar-qnh').innerText = data.qnh;
             document.getElementById('info-squawk').innerText = data.squawk;
 
+            if (data.frequency) {
+                document.getElementById('freq-header').innerText = data.frequency.header;
+                document.getElementById('freq-smc').innerText = data.frequency.smc;
+                document.getElementById('freq-tower').innerText = data.frequency.tower;
+                document.getElementById('freq-approach').innerText = data.frequency.approach;
+                document.getElementById('freq-area').innerText = data.frequency.area;
+            }
+
             updateQuestionUI();
             
-            // Close sidebar after selection if open
             if(document.getElementById('sidebar').classList.contains('open')) {
                 toggleSidebar();
             }
