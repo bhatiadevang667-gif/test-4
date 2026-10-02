@@ -13,16 +13,14 @@
         }
 
         :root {
-            --bg-main: #ffffff;
-            --card-bg: #ffffff;
-            --border-color: #cbd5e1;
+            --bg-main: #f8fafc;
+            --border-color: #000000;
             --text-primary: #0f172a;
-            --text-secondary: #475569;
+            --text-secondary: #334155;
             --accent-blue: #0284c7;
             --accent-blue-hover: #0369a1;
             --accent-green: #16a34a;
             --accent-red: #dc2626;
-            --pill-bg: #f1f5f9;
         }
 
         html, body {
@@ -40,85 +38,103 @@
 
         /* Top Header Navbar */
         .navbar {
-            height: 50px;
+            height: 46px;
             background-color: #ffffff;
             border-bottom: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 1.2rem;
+            padding: 0 1rem;
             flex-shrink: 0;
+            z-index: 20;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            width: 30px;
+            height: 30px;
+            padding: 2px;
+        }
+
+        .menu-btn div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 2px;
         }
 
         .nav-logo {
             font-weight: 800;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .nav-logo span {
             color: var(--accent-blue);
         }
 
-        .scenario-selector {
+        .nav-right {
             display: flex;
-            gap: 8px;
             align-items: center;
-        }
-
-        .scenario-chip {
-            padding: 5px 14px;
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            background: var(--pill-bg);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .scenario-chip.active {
-            background: var(--accent-blue);
-            color: #ffffff;
-            border-color: var(--accent-blue);
-        }
-
-        /* Fullscreen Grid Dashboard */
-        .dashboard {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 260px 1fr 340px;
             gap: 12px;
-            padding: 10px 12px 12px 12px;
-            height: calc(100vh - 50px);
-            background-color: var(--bg-main);
         }
 
-        .panel {
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+        .timer-badge {
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent-red);
+            background: #fef2f2;
+            padding: 2px 10px;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+        }
+
+        /* Slide-out Sidebar Drawer */
+        .sidebar {
+            position: fixed;
+            top: 46px;
+            left: -280px;
+            width: 280px;
+            height: calc(100vh - 46px);
+            background: #ffffff;
+            border-right: 2px solid var(--border-color);
+            transition: left 0.3s ease;
+            z-index: 30;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
         }
 
-        .panel-header {
-            padding: 10px 14px;
-            font-size: 12px;
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 12px;
+            font-size: 13px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-primary);
             border-bottom: 2px solid var(--border-color);
-            background-color: #f8fafc;
+            background: #f1f5f9;
         }
 
-        /* Left Sidebar: Select Paper */
         .paper-list {
             flex: 1;
             overflow-y: auto;
@@ -129,13 +145,12 @@
         }
 
         .paper-card {
-            padding: 10px 12px;
+            padding: 10px;
             background: #ffffff;
-            border: 1px solid var(--border-color);
+            border: 1px solid #cbd5e1;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            position: relative;
         }
 
         .paper-card:hover {
@@ -143,16 +158,13 @@
         }
 
         .paper-card.active {
-            border-color: var(--accent-blue);
-            border-width: 2px;
+            border: 2px solid var(--accent-blue);
             background: #f0f9ff;
         }
 
         .paper-title {
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
         }
 
         .paper-sub {
@@ -160,201 +172,141 @@
             color: var(--text-secondary);
         }
 
-        .badge-done {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            background: #dcfce7;
-            color: #15803d;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 2px 6px;
-            border-radius: 10px;
+        /* Overlay for sidebar */
+        .overlay {
+            position: fixed;
+            top: 46px;
+            left: 0;
+            width: 100vw;
+            height: calc(100vh - 46px);
+            background: rgba(0,0,0,0.3);
+            display: none;
+            z-index: 25;
         }
 
-        /* Center Column Workspace */
-        .center-viewport {
+        .overlay.active {
+            display: block;
+        }
+
+        /* Main Dashboard 2x2 Grid Area */
+        .dashboard-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: calc(100vh - 46px);
+            width: 100vw;
+            background-color: #ffffff;
+        }
+
+        .grid-box {
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            height: 100%;
+            overflow: hidden;
+            position: relative;
         }
 
-        .chart-display {
-            flex: 1;
+        .box-title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 0;
             background-color: #ffffff;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        /* 1. CHART AREA (Top-Left 50% width, 50% height) */
+        .box-chart {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .chart-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
+            background: #fafafa;
         }
 
-        .chart-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            text-align: center;
+        .chart-svg-container {
+            width: 100%;
+            height: 100%;
+            max-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 2. FLIGHT INFO AREA (Top-Right 50% width, 50% height) */
+        .box-flight-info {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .flight-info-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 16px 20px;
+            gap: 15px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .info-col p {
             color: var(--text-primary);
         }
 
-        .chart-details {
-            font-size: 12px;
-            color: var(--text-secondary);
-            text-align: center;
-            line-height: 1.5;
+        .info-col strong {
+            color: #000;
         }
 
-        /* Question Console at Bottom Center */
-        .question-console {
-            background-color: #ffffff;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px 16px;
+        /* 3. QUESTION AREA (Bottom-Left 50% width, 50% height) */
+        .box-question {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
+
+        .question-content {
+            flex: 1;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .q-header-bar {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-        }
-
-        .q-number {
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--accent-blue);
         }
 
         .q-text {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 700;
             color: var(--text-primary);
-            min-height: 36px;
+            line-height: 1.5;
+        }
+
+        .controls-bar {
             display: flex;
             align-items: center;
-        }
-
-        /* Right Panel: Exam Timer Top, Info Center, Controls Bottom Right */
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            height: 100%;
-        }
-
-        .widget {
-            background-color: #ffffff;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px 12px;
-        }
-
-        /* Timer at Right Top */
-        .timer-widget {
-            text-align: center;
-            background: #f8fafc;
-        }
-
-        .timer-display {
-            font-size: 32px;
-            font-weight: 800;
-            text-align: center;
-            color: var(--accent-blue);
-            margin: 2px 0;
-            font-family: monospace;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-        }
-
-        .data-table td {
-            padding: 4px 0;
-            color: var(--text-secondary);
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .data-table td:last-child {
-            text-align: right;
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .freq-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-top: 6px;
-            font-size: 11px;
-        }
-
-        .freq-card {
-            background: #f8fafc;
-            padding: 6px 8px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        .freq-label {
-            color: var(--text-secondary);
-            display: block;
-            margin-bottom: 2px;
-            font-weight: 700;
-            font-size: 10px;
-        }
-
-        .squawk-box {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            padding: 6px;
-            border-radius: 4px;
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        .squawk-code {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--accent-red);
-            letter-spacing: 2px;
-        }
-
-        /* Right Bottom Controls Area */
-        .controls-widget {
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: #f8fafc;
-        }
-
-        .action-row-right {
-            display: flex;
-            gap: 8px;
             justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e1;
         }
 
         .btn {
-            flex: 1;
-            padding: 10px;
-            font-size: 12px;
-            font-weight: 800;
-            border-radius: 6px;
-            border: none;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
             cursor: pointer;
             transition: all 0.2s;
-            text-align: center;
         }
 
         .btn:disabled {
@@ -365,131 +317,196 @@
         .btn-blue {
             background-color: var(--accent-blue);
             color: #ffffff;
-        }
-
-        .btn-blue:hover:not(:disabled) {
-            background-color: var(--accent-blue-hover);
+            border-color: var(--accent-blue);
         }
 
         .btn-green {
             background-color: var(--accent-green);
             color: #ffffff;
+            border-color: var(--accent-green);
         }
 
         .btn-outline {
             background: #ffffff;
-            border: 2px solid var(--border-color);
-            color: var(--text-primary);
         }
 
         .btn-outline:hover:not(:disabled) {
-            background: var(--pill-bg);
+            background: #f1f5f9;
         }
 
-        .btn-reset {
-            background: #ef4444;
-            color: #ffffff;
+        /* Bottom Right Container Split (25% Frequency, 25% METAR) */
+        .bottom-right-container {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+        }
+
+        /* 4. FREQUENCY AREA (25% width, 50% height) */
+        .box-frequency {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .freq-content {
+            padding: 16px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .freq-content p {
+            margin-bottom: 4px;
+        }
+
+        /* 5. METAR AREA (25% width, 50% height) */
+        .metar-content {
+            padding: 16px;
+            font-size: 13px;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Navbar -->
     <nav class="navbar">
-        <div class="nav-logo">✈ <span>TheSkyly</span></div>
-        <div class="scenario-selector">
-            <button class="scenario-chip active" onclick="loadScenario(0)">19th June 2026</button>
-            <button class="scenario-chip" onclick="loadScenario(1)">02nd Sept IGO5007</button>
+        <div class="nav-left">
+            <button class="menu-btn" onclick="toggleSidebar()" title="Toggle Menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </button>
+            <div class="nav-logo">✈ <span>TheSkyly</span> RTR Pt. 2 Simulator</div>
+        </div>
+        <div class="nav-right">
+            <span style="font-size: 12px; font-weight:700; color: var(--text-secondary);">TIMER:</span>
+            <div class="timer-badge" id="timer">30:00</div>
         </div>
     </nav>
 
-    <div class="dashboard">
+    <!-- Overlay & Slide-out Sidebar -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">Select Exam Paper</div>
+        <div class="paper-list">
+            <div class="paper-card active" id="paper-0" onclick="loadScenario(0)">
+                <div class="paper-title">VIDP &rarr; VABB</div>
+                <div class="paper-sub">19/06/2026 Morning (AI846)</div>
+            </div>
+            <div class="paper-card" id="paper-1" onclick="loadScenario(1)">
+                <div class="paper-title">VIDP &rarr; VIAR</div>
+                <div class="paper-sub">02/09/2026 Afternoon (IGO5007)</div>
+            </div>
+        </div>
+    </aside>
 
-        <aside class="panel">
-            <div class="panel-header">Select Paper</div>
-            <div class="paper-list">
-                <div class="paper-card active" id="paper-0" onclick="loadScenario(0)">
-                    <span class="badge-done">DONE</span>
-                    <div class="paper-title">VIDP &rarr; VABB</div>
-                    <div class="paper-sub">19/06/2026 Morning</div>
+    <!-- Fullscreen 2x2 Grid Layout -->
+    <div class="dashboard-grid">
+
+        <!-- 1. CHART (50% Width, 50% Height) -->
+        <section class="grid-box box-chart">
+            <div class="box-title">CHART</div>
+            <div class="chart-content">
+                <div class="chart-svg-container">
+                    <svg viewBox="0 0 600 300" style="width: 100%; height: 100%; max-height: 250px; background: #1e293b; border-radius: 6px;">
+                        <rect x="0" y="0" width="600" height="300" fill="#0f172a" />
+                        <rect x="50" y="220" width="500" height="30" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="60" y1="235" x2="540" y2="235" stroke="#ffffff" stroke-width="2" stroke-dasharray="12 8" />
+                        <text x="75" y="240" fill="#fff" font-weight="bold" font-size="14">09</text>
+                        <text x="505" y="240" fill="#fff" font-weight="bold" font-size="14">27</text>
+                        <path d="M 80 80 L 520 80 L 520 180 L 80 180 Z" fill="none" stroke="#f59e0b" stroke-width="4" />
+                        <line x1="80" y1="180" x2="80" y2="220" stroke="#f59e0b" stroke-width="4" />
+                        <line x1="520" y1="180" x2="520" y2="220" stroke="#f59e0b" stroke-width="4" />
+                        <rect x="230" y="40" width="140" height="40" fill="#0284c7" rx="4"/>
+                        <text x="300" y="65" fill="#fff" font-weight="bold" font-size="12" text-anchor="middle">TERMINAL</text>
+                        <rect x="110" y="140" width="60" height="30" fill="#334155" rx="3"/>
+                        <text x="140" y="160" fill="#fff" font-size="10" text-anchor="middle">APRON 1</text>
+                        <rect x="430" y="140" width="60" height="30" fill="#334155" rx="3"/>
+                        <text x="460" y="160" fill="#fff" font-size="10" text-anchor="middle">APRON 2</text>
+                    </svg>
                 </div>
-                <div class="paper-card" id="paper-1" onclick="loadScenario(1)">
-                    <div class="paper-title">IGO5007 (VIDP &rarr; VIAR)</div>
-                    <div class="paper-sub">02/09/2026 Afternoon</div>
-                </div>
-            </div>
-        </aside>
-
-        <main class="center-viewport">
-            <div class="chart-display">
-                <div class="chart-title" id="chart-title">DELHI INTERNATIONAL AIRPORT (VIDP)</div>
-                <div class="chart-details" id="chart-desc">
-                    Terminal Building & Stands 53D • Taxiway Layout A474<br>
-                    Runway 11L / 29R • Holding Points
-                </div>
-            </div>
-
-            <div class="question-console">
-                <div class="q-header-bar">
-                    <span class="q-number" id="q-number">Task 1 of 12</span>
-                    <span style="font-size: 11px; color: var(--text-secondary);" id="progress-text">Progress: 1/12</span>
-                </div>
-                <div class="q-text" id="q-text">Loading question...</div>
-            </div>
-        </main>
-
-        <aside class="right-panel">
-            
-            <div class="widget timer-widget">
-                <div class="panel-header" style="border:none; background:none; padding:0; text-align:center;">EXAM TIMER</div>
-                <div class="timer-display" id="timer">30:00</div>
-            </div>
-
-            <div class="widget">
-                <div class="panel-header" style="border:none; background:none; padding:0 0 6px 0;">FLIGHT INFORMATION</div>
-                <table class="data-table">
-                    <tr><td>Callsign</td><td id="info-callsign">AI846</td></tr>
-                    <tr><td>Departure</td><td id="info-dep">VIDP</td></tr>
-                    <tr><td>Arrival</td><td id="info-dest">VABB</td></tr>
-                    <tr><td>Aircraft Type</td><td id="info-type">Cessna 552</td></tr>
-                    <tr><td>ATS Route</td><td id="info-route">A474</td></tr>
-                    <tr><td>Alternate</td><td id="info-alt">VOBG</td></tr>
-                </table>
-            </div>
-
-            <div class="widget">
-                <div class="panel-header" style="border:none; background:none; padding:0 0 6px 0;">METAR INFORMATION</div>
-                <table class="data-table">
-                    <tr><td>Wind Vector</td><td id="metar-wind">340° / 03 KT</td></tr>
-                    <tr><td>Visibility</td><td id="metar-vis">3000 M</td></tr>
-                    <tr><td>Weather</td><td id="metar-wx">SMOG (HZ)</td></tr>
-                    <tr><td>ATIS Code</td><td id="info-atis">B</td></tr>
-                </table>
-            </div>
-
-            <div class="widget">
-                <div class="panel-header" style="border:none; background:none; padding:0 0 4px 0;">ATC FREQUENCIES</div>
-                <div class="freq-grid">
-                    <div class="freq-card"><span class="freq-label">DEL SMC</span>118.55</div>
-                    <div class="freq-card"><span class="freq-label">DEL TWR</span>118.10</div>
-                    <div class="freq-card"><span class="freq-label">DEL APP</span>121.35</div>
-                    <div class="freq-card"><span class="freq-label">DEL ACC</span>119.50</div>
-                </div>
-                <div class="squawk-box">
-                    <span style="font-size: 10px; color: var(--text-secondary); font-weight:800; display: block;">SQUAWK CODE</span>
-                    <span class="squawk-code">6415</span>
+                <div style="font-size: 11px; color: var(--text-secondary); margin-top: 6px;" id="chart-desc">
+                    DELHI INT. AIRPORT (VIDP) • Runway 09/27
                 </div>
             </div>
+        </section>
 
-            <div class="widget controls-widget">
-                <div class="panel-header" style="border:none; background:none; padding:0 0 4px 0; text-align:center;">NAVIGATION CONTROLS</div>
-                <div class="action-row-right">
-                    <button class="btn btn-outline" id="btn-prev" onclick="changeQuestion(-1)" disabled>Back</button>
-                    <button class="btn btn-reset" onclick="resetExam()">Reset</button>
+        <!-- 2. FLIGHT INFO (50% Width, 50% Height) -->
+        <section class="grid-box box-flight-info">
+            <div class="box-title">FLIGHT INFO</div>
+            <div class="flight-info-grid">
+                <div class="info-col">
+                    <p>Departure: <strong id="info-dep">VIDP</strong></p>
+                    <p>Arrival: <strong id="info-dest">VABB</strong></p>
+                    <p>Call Sign: <strong id="info-callsign">AI846</strong></p>
+                    <p>Alternate: <strong id="info-alt">VAAH</strong></p>
+                    <p>ATS Route: <strong id="info-route">A474</strong></p>
+                    <p>FL: <strong id="info-fl">360</strong></p>
+                    <p>Runway: <strong id="info-rwy">09</strong></p>
+                </div>
+                <div class="info-col">
+                    <p>Type: <strong id="info-type">Airbus 320neo</strong></p>
+                    <p>Registration: <strong id="info-reg">VT-HDG</strong></p>
+                    <p>Wake: <strong id="info-wake">Medium</strong></p>
+                    <p>Stand: <strong id="info-stand">53c</strong></p>
+                    <p>Flight Rule: <strong id="info-rule">IFR</strong></p>
+                    <p>POB: <strong id="info-pob">180</strong></p>
+                    <p>Endurance: <strong id="info-endurance">0440</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. QUESTION (50% Width, 50% Height) -->
+        <section class="grid-box box-question">
+            <div class="box-title">QUESTION</div>
+            <div class="question-content">
+                <div>
+                    <div style="font-size: 12px; font-weight:800; color: var(--accent-blue); margin-bottom: 8px;" id="q-number">
+                        Task 1 of 12
+                    </div>
+                    <div class="q-text" id="q-text">
+                        Request for startup and pushback.
+                    </div>
+                </div>
+                
+                <div class="controls-bar">
+                    <button class="btn btn-outline" id="btn-prev" onclick="changeQuestion(-1)" disabled>Previous</button>
+                    <span style="font-size: 11px; color: var(--text-secondary);" id="progress-text">1 / 12</span>
                     <button class="btn btn-blue" id="btn-next" onclick="changeQuestion(1)">Next</button>
                 </div>
             </div>
+        </section>
 
-        </aside>
+        <!-- BOTTOM RIGHT CONTAINER (Split into 25% FREQUENCY and 25% METAR) -->
+        <div class="bottom-right-container">
+            
+            <!-- 4. FREQUENCY (25% Width, 50% Height) -->
+            <section class="grid-box box-frequency">
+                <div class="box-title">FREQENCY</div>
+                <div class="freq-content">
+                    <p><strong>DELHI ATC</strong></p>
+                    <p>SMC: <strong>118.55</strong></p>
+                    <p>Control Tower: <strong>118.10</strong></p>
+                    <p>Approach: <strong>121.35</strong></p>
+                    <p>Area Control: <strong>119.50</strong></p>
+                </div>
+            </section>
+
+            <!-- 5. METAR (25% Width, 50% Height) -->
+            <section class="grid-box box-metar">
+                <div class="box-title">METAR</div>
+                <div class="metar-content">
+                    <p>Wind: <strong id="metar-wind">340° / 03 KT</strong></p>
+                    <p>Visibility: <strong id="metar-vis">3000 M</strong></p>
+                    <p>Wx: <strong id="metar-wx">SMOG</strong></p>
+                    <p>Temp: <strong id="metar-temp">17°C</strong></p>
+                    <p>DP: <strong id="metar-dp">11°C</strong></p>
+                    <p>QNH: <strong id="metar-qnh">1009 hPa</strong></p>
+                    <p>SQUAWK: <strong id="info-squawk" style="color:var(--accent-red)">4231</strong></p>
+                </div>
+            </section>
+
+        </div>
 
     </div>
 
@@ -497,17 +514,28 @@
         const scenarioData = [
             {
                 title: "DELHI INTERNATIONAL AIRPORT (VIDP)",
-                desc: "Terminal Building & Stands 53D • Taxiway Layout A474<br>Runway 11L / 29R • Holding Points",
+                desc: "DELHI INT. AIRPORT (VIDP) • Runway 09/27 • Stand 53C",
                 callsign: "AI846",
                 dep: "VIDP",
                 dest: "VABB",
-                type: "Cessna 552",
+                alt: "VAAH",
                 route: "A474",
-                alt: "VOBG",
-                atis: "B",
+                fl: "360",
+                rwy: "09",
+                type: "Airbus 320neo",
+                reg: "VT-HDG",
+                wake: "Medium",
+                stand: "53c",
+                rule: "IFR",
+                pob: "180",
+                endurance: "0440",
                 wind: "340° / 03 KT",
                 vis: "3000 M",
-                wx: "SMOG (HZ)",
+                wx: "SMOG",
+                temp: "17°C",
+                dp: "11°C",
+                qnh: "1009 hPa",
+                squawk: "4231",
                 questions: [
                     "Request for startup and pushback.",
                     "Request for ATC Clearance and Taxi.",
@@ -525,25 +553,36 @@
             },
             {
                 title: "EN-ROUTE TO AMRITSAR (VIAR)",
-                desc: "En-route segment via ATS Route • Transition Levels active<br>Diverting sector VIDP",
+                desc: "AMRITSAR AIRPORT (VIAR) • Runway 16/34",
                 callsign: "IGO5007",
                 dep: "VIDP",
                 dest: "VIAR",
-                type: "Airbus A320",
-                route: "Direct VIAR",
                 alt: "VIDP",
-                atis: "C",
+                route: "Direct VIAR",
+                fl: "250",
+                rwy: "16",
+                type: "Airbus A320",
+                reg: "VT-IGO",
+                wake: "Medium",
+                stand: "12",
+                rule: "IFR",
+                pob: "165",
+                endurance: "0330",
                 wind: "270° / 10 KT",
                 vis: "200 M",
-                wx: "Low Stratus / Fog",
+                wx: "FOG",
+                temp: "12°C",
+                dp: "10°C",
+                qnh: "1012 hPa",
+                squawk: "6415",
                 questions: [
                     "You're in enroute Amritsar, passing FLxx, request further climb. (Note: Include Transition Level in readback).",
                     "Request landing clearance, ILS approach (Report when established on localiser).",
-                    "Visibility now reduced to 200m, you're on final RWY in Amritsar, take action. (Go around, missed approach, request diversion to Delhi).",
+                    "Visibility now reduced to 200m, you're on final RWY in Amritsar, take action.",
                     "Diversion to Delhi approved, climb FL250. Readback clearance.",
                     "Passing FL110, you experience severe turbulence. Request descent to FL090.",
                     "60NM to VIDP, give position report with revised estimates.",
-                    "30NM to VIDP, a passenger falls seriously sick. (PAN PAN x3, request medical assistance on arrival for RWY 11R).",
+                    "30NM to VIDP, a passenger falls seriously sick. (PAN PAN x3).",
                     "Landed on RWY 11L (ATC assigned 11L instead of 11R). Take action and request taxi to stand."
                 ]
             }
@@ -552,33 +591,52 @@
         let currentScenarioIdx = 0;
         let currentIdx = 0;
 
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
         function loadScenario(idx) {
             currentScenarioIdx = idx;
             currentIdx = 0;
-
-            document.querySelectorAll('.scenario-chip').forEach((chip, i) => {
-                chip.classList.toggle('active', i === idx);
-            });
 
             document.querySelectorAll('.paper-card').forEach((card, i) => {
                 card.classList.toggle('active', i === idx);
             });
 
             const data = scenarioData[idx];
-            document.getElementById('chart-title').innerHTML = data.title;
-            document.getElementById('chart-desc').innerHTML = data.desc;
+            document.getElementById('chart-desc').innerText = data.desc;
             document.getElementById('info-callsign').innerText = data.callsign;
             document.getElementById('info-dep').innerText = data.dep;
             document.getElementById('info-dest').innerText = data.dest;
-            document.getElementById('info-type').innerText = data.type;
-            document.getElementById('info-route').innerText = data.route;
             document.getElementById('info-alt').innerText = data.alt;
-            document.getElementById('info-atis').innerText = data.atis;
+            document.getElementById('info-route').innerText = data.route;
+            document.getElementById('info-fl').innerText = data.fl;
+            document.getElementById('info-rwy').innerText = data.rwy;
+            document.getElementById('info-type').innerText = data.type;
+            document.getElementById('info-reg').innerText = data.reg;
+            document.getElementById('info-wake').innerText = data.wake;
+            document.getElementById('info-stand').innerText = data.stand;
+            document.getElementById('info-rule').innerText = data.rule;
+            document.getElementById('info-pob').innerText = data.pob;
+            document.getElementById('info-endurance').innerText = data.endurance;
+
             document.getElementById('metar-wind').innerText = data.wind;
             document.getElementById('metar-vis').innerText = data.vis;
             document.getElementById('metar-wx').innerText = data.wx;
+            document.getElementById('metar-temp').innerText = data.temp;
+            document.getElementById('metar-dp').innerText = data.dp;
+            document.getElementById('metar-qnh').innerText = data.qnh;
+            document.getElementById('info-squawk').innerText = data.squawk;
 
             updateQuestionUI();
+            
+            // Close sidebar after selection if open
+            if(document.getElementById('sidebar').classList.contains('open')) {
+                toggleSidebar();
+            }
         }
 
         function updateQuestionUI() {
@@ -586,7 +644,7 @@
 
             document.getElementById('q-number').innerText = `Task ${currentIdx + 1} of ${activeQuestions.length}`;
             document.getElementById('q-text').innerText = activeQuestions[currentIdx];
-            document.getElementById('progress-text').innerText = `Progress: ${currentIdx + 1}/${activeQuestions.length}`;
+            document.getElementById('progress-text').innerText = `${currentIdx + 1} / ${activeQuestions.length}`;
 
             document.getElementById('btn-prev').disabled = (currentIdx === 0);
 
@@ -605,7 +663,7 @@
             currentIdx += direction;
 
             if (currentIdx >= activeQuestions.length) {
-                alert("RTR Part 2 Exam Simulation Completed!");
+                alert("Exam Simulation Completed!");
                 currentIdx = activeQuestions.length - 1;
                 return;
             }
@@ -614,13 +672,7 @@
             updateQuestionUI();
         }
 
-        function resetExam() {
-            currentIdx = 0;
-            totalSeconds = 30 * 60;
-            updateQuestionUI();
-        }
-
-        /* Exam Timer */
+        /* Timer Counter */
         let totalSeconds = 30 * 60;
         const timerElement = document.getElementById('timer');
 
@@ -636,7 +688,7 @@
             if (totalSeconds > 0) totalSeconds--;
         }, 1000);
 
-        /* Initialize Scenario 1 */
+        // Load default scenario
         loadScenario(0);
     </script>
 </body>
