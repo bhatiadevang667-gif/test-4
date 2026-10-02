@@ -397,6 +397,10 @@
                 <div class="paper-title">VIDP &rarr; VIAR</div>
                 <div class="paper-sub">02/09/2026 Afternoon (IGO5007)</div>
             </div>
+            <div class="paper-card" id="paper-3" onclick="loadScenario(1)">
+                <div class="paper-title">VECC &rarr; VILK</div>
+                <div class="paper-sub">18/08/2026 Afternoon (IGO7277)</div>
+            </div>
         </div>
     </aside>
 
@@ -585,7 +589,53 @@
                     "30NM to VIDP, a passenger falls seriously sick. (PAN PAN x3).",
                     "Landed on RWY 11L (ATC assigned 11L instead of 11R). Take action and request taxi to stand."
                 ]
-            }
+            },
+    {
+        title: "KOLKATA ATC (VECC)",
+        desc: "KOLKATA ATC (VECC) • Runway 09 • Stand 53D",
+        callsign: "IG07277",
+        dep: "VECC",
+        dest: "VILK",
+        alt: "",
+        route: "A474",
+        fl: "220",
+        rwy: "09",
+        type: "BOEING 737",
+        reg: "",
+        wake: "",
+        stand: "53D",
+        rule: "IFR",
+        pob: "156",
+        endurance: "03:00",
+        wind: "340° / 03 KT",
+        vis: "3000 M",
+        wx: "SMOG",
+        temp: "17°C",
+        dp: "11°C",
+        qnh: "1016 hPa",
+        squawk: "",
+        frequency: {
+            smc: "118.55",
+            tower: "118.10",
+            approach: "121.35",
+            areaControl: "119.50"
+        },
+        questions: [
+            "1) GIVE A POSITION REPORT TO CONTROL AT YOUR TOP OF CLIMB OVER 10 NM O/B AAKELA 1000 EST BAVOX 1017 EST GOLOX 1043",
+            "2) 30 NM O/B AAKELA STARBOARD ENGINE IS HEAVILY VIBRATING REQ TO RETURN TO DEPARTURE",
+            "3) YOU RETURN TO THE DEPARTURE ISSUE RESOLVED, REQUEST FOR PUSHBACK AND STARTUP AGAIN",
+            "4) REQUEST ATC CLEARANCE AND TAXI INSTRUCTION",
+            "5) YOU HAVE LINED UP ON THE RUNWAY AND WANT TO PERFORM A FEW FINAL CHECKS WHICH WILL DELAY YOUR DEPARTURE - INFORM ATC",
+            "6) PASSING 5000 FT CONTACT APPROCH FOR FURTHER CLIMB",
+            "7) YOU RECIVED TCAS RA PASSING FL100",
+            "8) RELAY FOR VT-UPB",
+            "9) 100 NM I/B DELHI ON COMPANY FREQUENCY YOU GET TO KNOW ABOUT A BOMB ON BOARD ABOUT TO EXPLODE AT ANY MOMENT",
+            "10) 08 NM FROM TOUCH DOWN CONTACT TOWER FOR LANDING",
+            "11) 08 NM FROM TOUCH DOWN CONTACT TOWER FOR LANDING",
+            "12) 04 NM FROM TOUCHDOWN, YOU NOTICE THE RUNWAY EDGE LIGHTS ARE VERY BRIGHT TAKE ACTION"
+        ]
+    }
+];
         ];
 
         let currentScenarioIdx = 0;
